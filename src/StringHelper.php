@@ -451,6 +451,31 @@ class StringHelper
 
         return $lines !== false ? $lines : [];
     }
+
+    /**
+     * Strips non ascii characters
+     *
+     * @param string $string
+     *
+     * @return string
+     * @see https://php.net/manual/en/filter.constants.php
+     * @see https://en.wikipedia.org/wiki/ASCII
+     */
+    public static function stripNonBasicAscii(string $string): string
+    {
+        return filter_var($string, FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_HIGH);
+    }
+
+    /**
+     * @param string $string
+     *
+     * @return string
+     */
+    public static function stripNonPrintable(string $string): string
+    {
+        return preg_replace('/[^[:print:]]/', '', $string);
+    }
+
 }
 
 // shortcut for strtr

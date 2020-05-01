@@ -142,5 +142,20 @@ class StringHelperTest extends BaseTest
         $this->assertEquals('Line3', $lines[2]);
         $this->assertEquals('Line4', $lines[3]);
     }
+
+    public function testStripNonAscii()
+    {
+        $asciiString = '';
+
+        for ($i = 1; $i <= 126; $i++) {
+            $asciiString .= chr($i);
+        }
+
+        $this->assertEquals(' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~', StringHelper::stripNonBasicAscii($asciiString));
+        $this->assertEquals(' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~', StringHelper::stripNonPrintable($asciiString));
+
+        echo $asciiString;
+
+    }
 }
  
